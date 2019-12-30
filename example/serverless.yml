@@ -52,6 +52,12 @@ provider:
       Fn::GetAtt:
         - param
         - Value
+    stateMachineRef:
+      Ref: stateMachine
+    stateMachineName:
+      Fn::GetAtt:
+        - stateMachine
+        - Name
 
 custom:
   idx: 0
@@ -111,6 +117,47 @@ resources:
         Name: ${self:service}-${self:provider.stage}-param
         Type: String
         Value: Test String
+
+    iamRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - states.amazonaws.com
+              Action:
+                - 'sts:AssumeRole'
+        Policies:
+          - PolicyName: "InvokeHello2"
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                  - 
+                    Effect: "Allow"
+                    Action: "lambda:InvokeFunction"
+                    Resource:
+                      - '*'
+    stateMachine:
+      Type: AWS::StepFunctions::StateMachine
+      Properties:
+        StateMachineName: HelloWorld-StateMachine
+        RoleArn:
+          Fn::GetAtt: 
+            - iamRole
+            - Arn
+        DefinitionString: |-
+          {
+            "StartAt": "HelloWorld",
+            "States": {
+              "HelloWorld": {
+                "Type": "Pass",
+                "End": true
+              }
+            }
+          }
 
   Outputs:
     test:

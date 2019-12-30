@@ -14,5 +14,7 @@ module.exports.handler = async event => {
   console.log(`paramName: ${process.env.paramName}`);
   console.log(`paramType: ${process.env.paramType}`);
   console.log(`paramValue: ${process.env.paramValue}`);
+  console.log(`stateMachineRef: ${process.env.stateMachineRef}`);
+  console.log(`stateMachineName: ${process.env.stateMachineName}`);
   console.log(`imported: ${process.env.imported}`);
 };

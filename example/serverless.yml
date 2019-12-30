@@ -18,8 +18,8 @@ provider:
   stage: dev
 
   environment:
-    imported:
-      Fn::ImportValue: ${self:service}-${self:provider.stage}-sqs
+    # imported:
+    #   Fn::ImportValue: ${self:service}-${self:provider.stage}-sqs
     ddbArn:
       Fn::GetAtt: 
         - dynamoDB

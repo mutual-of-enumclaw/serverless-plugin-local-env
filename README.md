@@ -44,7 +44,7 @@ The example provided is a serverless project which contains a DynamoDB Table, an
     ``` bash
     serverless deploy
     ```
-4. Un-comment lines #34 & #35 in the serverless.yml file
+4. Un-comment lines #21 & #22 in the serverless.yml file
 5. Invoke the function to run locally
     ``` bash
     serverless invoke local --function hello

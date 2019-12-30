@@ -1,0 +1,13 @@
+{
+    "name": "example-local-env",
+    "version": "0.1.0",
+    "publisher": "Mutual of Enumclaw",
+    "scripts": {
+        "start": "serverless invoke local --function hello",
+        "deploy": "serverless deploy"
+    },
+    "devDependencies": {
+        "@moe-tech/serverless-plugin-local-env": "^0.1.1"
+    },
+    "dependencies": {}
+}

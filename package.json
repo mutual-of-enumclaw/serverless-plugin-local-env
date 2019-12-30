@@ -1,0 +1,14 @@
+{
+    "name": "@moe-tech/serverless-plugin-local-env",
+    "version": "0.1.1",
+    "main": "src/index.js",
+    "publisher": "Mutual of Enumclaw",
+    "description": "Resolves cloudformation Ref, Fn::GetAtt and Fn::ImportValue references in the environment variables for local debugging",
+    "license": "MIT",
+    "dependencies": {
+        "aws-sdk": "^2.596.0"
+    },
+    "files": [
+        "src/**/*"
+    ]
+}

@@ -1,0 +1,120 @@
+service: example-local-env
+
+plugins:
+  - "@moe-tech/serverless-plugin-local-env"
+
+package:
+  excludeDevDependencies: false
+  exclude:
+    - '!node_modules/**'
+  include:
+    - functions/handler.js
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  versionFunctions: false
+  region: us-west-2
+  stage: dev
+
+  environment:
+    imported:
+      Fn::ImportValue: ${self:service}-${self:provider.stage}-sqs
+    ddbArn:
+      Fn::GetAtt: 
+        - dynamoDB
+        - Arn
+    snsRef:
+      Ref: sns
+    snsTopicName:
+      Fn::GetAtt:
+        - sns
+        - TopicName
+    sqsQueueRef:
+      Ref: sqsQueue
+    sqsQueueArn:
+      Fn::GetAtt: 
+        - sqsQueue
+        - Arn
+    sqsQueueName:
+      Fn::GetAtt: 
+        - sqsQueue
+        - QueueName
+    secretArn:
+      Ref: secret
+    paramName:
+      Ref: param
+    paramType:
+      Fn::GetAtt:
+        - param
+        - Type
+    paramValue:
+      Fn::GetAtt:
+        - param
+        - Value
+
+custom:
+  idx: 0
+
+functions:
+  hello:
+    handler: functions/handler.handler
+    environment:
+      HANDLER: ${self:functions.hello.handler}
+      IDX: ${self:custom.idx}
+      refLambdaName:
+        Ref: Hello2LambdaFunction
+      refLambdaArn:
+        Fn::GetAtt: 
+          - Hello2LambdaFunction
+          - Arn
+
+  hello2:
+    handler: functions/handler2.handler
+    environment:
+      HANDLER: ${self:functions.hello.handler}
+      IDX: ${self:custom.idx}
+
+resources:
+  Resources:
+    dynamoDB:
+      Type: AWS::DynamoDB::Table
+      Properties: 
+        TableName: test
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: test
+            AttributeType: S
+        KeySchema:
+          - AttributeName: test
+            KeyType: HASH
+
+    sns:
+      Type: AWS::SNS::Topic
+      Properties: 
+        TopicName: test-sns
+
+    sqsQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: TestQueue
+
+    secret:
+      Type: AWS::SecretsManager::Secret
+      Properties:
+        Name: ${self:service}/${self:provider.stage}/secret
+        SecretString: '{"test": "1"}'
+
+    param:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Name: ${self:service}-${self:provider.stage}-param
+        Type: String
+        Value: Test String
+
+  Outputs:
+    test:
+      Value:
+        Ref: sqsQueue
+      Export:
+        Name: ${self:service}-${self:provider.stage}-sqs

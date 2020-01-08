@@ -1,7 +1,7 @@
 service: example-local-env
 
 plugins:
-  - "@moe-tech/serverless-plugin-local-env"
+ - "@moe-tech/serverless-plugin-local-env"
 
 package:
   excludeDevDependencies: false
@@ -71,9 +71,7 @@ functions:
       refLambdaName:
         Ref: Hello2LambdaFunction
       refLambdaArn:
-        Fn::GetAtt: 
-          - Hello2LambdaFunction
-          - Arn
+        Fn::GetAtt: Hello2LambdaFunction.Arn
 
   hello2:
     handler: functions/handler2.handler

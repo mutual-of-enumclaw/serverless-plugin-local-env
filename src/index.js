@@ -69,10 +69,6 @@ class ServerlessPlugin {
             await resolveResource(i, configuredEnvVars, this.serverless, credentialEnvVars);
         }
 
-        for(let i in configuredEnvVars) {
-            await resolveResource(i, configuredEnvVars, this.serverless, credentialEnvVars);
-        }
-    
         mergeEnv(lambdaDefaultEnvVars, process.env);
         mergeEnv(credentialEnvVars, process.env);
         mergeEnv(configuredEnvVars, process.env);

@@ -1,6 +1,6 @@
 {
     "name": "example-local-env",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "Mutual of Enumclaw",
     "scripts": {
         "start": "serverless invoke local --function hello",

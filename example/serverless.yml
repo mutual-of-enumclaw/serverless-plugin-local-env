@@ -1,7 +1,7 @@
 service: example-local-env
 
 plugins:
-#  - "@moe-tech/serverless-plugin-local-env"
+  - "@moe-tech/serverless-plugin-local-env"
 
 package:
   excludeDevDependencies: false

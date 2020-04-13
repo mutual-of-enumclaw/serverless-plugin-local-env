@@ -81,11 +81,11 @@ module.exports = async (name, environment, serverless, credentialEnvVars) => {
             break;
     }
 
-    if(cache[action] && cache[action][resourceName]) {
+    if(cache[action] && cache[action][resourceName? resourceName : importName]) {
         switch(action) {
             case 'Ref':
             case 'Fn::ImportValue':
-                environment[name] = cache[action][resourceName];
+                environment[name] = cache[action][importName];
                 return;
             case 'Fn::GetAtt':
                 const val = cache[action][resourceName][value[action][1]];

@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports.handler = async event => {
-  
-  console.log(`refLambdaName: ${process.env.refLambdaName}`);
-  console.log(`refLambdaArn: ${process.env.refLambdaArn}`);
+  console.log(`refLambdaName: ${process.env.rLambdaName}`);
+  console.log(`refLambdaArn: ${process.env.rLambdaArn}`);
   console.log(`ddbArn: ${process.env.ddbArn}`);
   console.log(`snsRef: ${process.env.snsRef}`);
   console.log(`snsTopicName: ${process.env.snsTopicName}`);

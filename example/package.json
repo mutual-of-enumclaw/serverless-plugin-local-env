@@ -9,5 +9,7 @@
     "devDependencies": {
         "@moe-tech/serverless-plugin-local-env": "^0.1.2"
     },
-    "dependencies": {}
+    "dependencies": {
+        "serverless": "^1.60.5"
+    }
 }

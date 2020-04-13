@@ -1,7 +1,7 @@
 service: example-local-env
 
 plugins:
- - "@moe-tech/serverless-plugin-local-env"
+#  - "@moe-tech/serverless-plugin-local-env"
 
 package:
   excludeDevDependencies: false
@@ -16,10 +16,10 @@ provider:
   versionFunctions: false
   region: us-west-2
   stage: dev
-
+ 
   environment:
-    # imported:
-    #   Fn::ImportValue: ${self:service}-${self:provider.stage}-sqs
+    imported:
+      Fn::ImportValue: ${self:service}-${self:provider.stage}-sqs
     ddbArn:
       Fn::GetAtt: 
         - dynamoDB
@@ -68,9 +68,9 @@ functions:
     environment:
       HANDLER: ${self:functions.hello.handler}
       IDX: ${self:custom.idx}
-      refLambdaName:
+      rLambdaName:
         Ref: Hello2LambdaFunction
-      refLambdaArn:
+      rLambdaArn:
         Fn::GetAtt: Hello2LambdaFunction.Arn
 
   hello2:

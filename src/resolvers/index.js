@@ -9,7 +9,8 @@ const handlers = {
     'AWS::Lambda::Function': require('./lambda'),
     'AWS::SecretsManager::Secret': require('./secrets'),
     'AWS::SSM::Parameter': require('./ssm-parameter'),
-    'AWS::StepFunctions::StateMachine': require('./state-machine')
+    'AWS::StepFunctions::StateMachine': require('./state-machine'),
+    'AWS::RDS::DBInstance': require('./rds')
 };
 
 let cfrServerless = null;
